@@ -886,3 +886,110 @@ index.html
   </script>
 </body>
 </html>
+
+
+
+
+
+poster.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Print Shop Poster - CampusStationery Live</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; padding: 0 !important; }
+      #posterCard { box-shadow: none !important; border: 3px solid #1e1b4b !important; margin: 0 auto !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-200 min-h-screen py-8 px-4">
+
+  <!-- Top Controls (Hidden Automatically When Printing) -->
+  <div class="no-print max-w-2xl mx-auto mb-6 bg-white p-4 rounded-2xl shadow-md border border-slate-300 flex flex-col sm:flex-row items-center gap-3">
+    <div class="flex-1 w-full">
+      <label class="block text-xs font-bold text-slate-600 mb-1">Paste Your Live GitHub Pages Link Here:</label>
+      <input 
+        id="appUrlInput" 
+        type="text" 
+        value="https://yourusername.github.io/campus-stationery/" 
+        oninput="updatePosterQr()"
+        class="w-full px-3 py-2 border border-slate-300 rounded-xl text-sm font-mono focus:outline-none focus:ring-2 focus:ring-indigo-600"
+      />
+    </div>
+    <button onclick="window.print()" class="w-full sm:w-auto mt-2 sm:mt-5 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-sm transition">
+      🖨️ Print / Save PDF
+    </button>
+  </div>
+
+  <!-- A4 Printable Poster Card -->
+  <div id="posterCard" class="max-w-2xl mx-auto bg-white rounded-3xl p-8 sm:p-10 shadow-2xl border-4 border-indigo-950 text-center space-y-6">
+    
+    <div class="inline-block bg-rose-600 text-white font-extrabold text-xs sm:text-sm uppercase tracking-widest px-4 py-1.5 rounded-full">
+      ⚡ Skip The Counter Crowd!
+    </div>
+
+    <div class="space-y-2">
+      <h1 class="text-3xl sm:text-5xl font-black text-indigo-950 tracking-tight leading-none">
+        DON'T STAND IN LINE.
+      </h1>
+      <p class="text-base sm:text-lg font-semibold text-slate-600">
+        Check Live Book Stock & Book Your Queue Token From Your Phone
+      </p>
+    </div>
+
+    <div class="bg-indigo-950 text-white rounded-3xl p-6 sm:p-8 max-w-md mx-auto space-y-4 shadow-inner">
+      <p class="text-xs font-bold uppercase tracking-widest text-indigo-300">Scan With Camera or Google Lens</p>
+      <div class="bg-white p-4 rounded-2xl inline-block shadow-lg">
+        <img 
+          id="posterQrImg" 
+          src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https%3A%2F%2Fyourusername.github.io%2Fcampus-stationery%2F" 
+          alt="Scan App QR" 
+          class="w-56 h-56 mx-auto"
+        />
+      </div>
+      <p id="posterUrlDisplay" class="font-mono text-sm font-bold text-emerald-400 break-all">
+        yourusername.github.io/campus-stationery
+      </p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3 pt-2 text-left">
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <span class="text-xs font-black text-indigo-600 uppercase">Step 1</span>
+        <p class="font-bold text-sm text-slate-900 mt-1">Enter Mobile No.</p>
+        <p class="text-xs text-slate-500 mt-0.5">No college ID, password, or OTP needed.</p>
+      </div>
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <span class="text-xs font-black text-indigo-600 uppercase">Step 2</span>
+        <p class="font-bold text-sm text-slate-900 mt-1">Check Stock & Book</p>
+        <p class="text-xs text-slate-500 mt-0.5">See live book availability & get a token.</p>
+      </div>
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <span class="text-xs font-black text-indigo-600 uppercase">Step 3</span>
+        <p class="font-bold text-sm text-slate-900 mt-1">Direct Pickup</p>
+        <p class="text-xs text-slate-500 mt-0.5">Walk in only when your token is called!</p>
+      </div>
+    </div>
+
+    <div class="pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-slate-500">
+      <span>📚 College Stationery Shop • Main Block</span>
+      <span>📲 Tap "Install App" after scanning</span>
+    </div>
+
+  </div>
+
+  <script>
+    function updatePosterQr() {
+      const rawUrl = document.getElementById('appUrlInput').value.trim() || "https://yourusername.github.io/campus-stationery/";
+      document.getElementById('posterQrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=${encodeURIComponent(rawUrl)}`;
+      document.getElementById('posterUrlDisplay').textContent = rawUrl.replace(/^https?:\/\//, '');
+    }
+  </script>
+</body>
+</html>
